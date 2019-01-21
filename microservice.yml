@@ -1,0 +1,120 @@
+omg: 1
+lifecycle:
+  startup:
+    command: ["go", "build", "pagerduty"]
+info:
+  version: 1.0.0
+  title: Pagerduty Incodent 
+  description: This is to create, update and resolve incidents on PagerDuty
+  contact:
+    name: Deva Chormale
+    url: https://github.com/devaht
+    email: kchormale@gmail.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT 
+actions:
+  createincident:
+    help: Create an incident
+    arguments:
+      from:
+        type: string
+        in: requestBody
+        required: true
+        help: The email address of a valid user associated with the account making the request
+      incident:
+        type: object
+        in: requestBody
+        required: true
+        help: Incident detail for creation.
+    http:
+      port: 8000
+      method: post
+      path: /incidents
+      contentType: application/json
+    output:
+      contentType: application/json
+      type: string
+  updateincident:
+    help: Update an incident
+    arguments:
+      id:
+        type: string
+        in: path
+        required: true
+      from:
+        type: string
+        in: query
+        required: true
+      payload:
+        type: string
+        in: requestBody
+        help: The content to update incident
+    http:
+      port: 8000
+      method: put
+      path: /incidents/{{id}}
+      contentType: application/json
+    output:
+      contentType: application/json
+      type: string
+  getincident:
+    help: Show detailed information about an incident. Accepts either an incident id, or an incident number.
+    arguments:
+      id:
+        type: string
+        in: path
+        required: true
+    http:
+      port: 8000
+      method: get
+      path: /incidents/{{id}}
+      contentType: application/json
+    output:
+      contentType: application/json
+      type: string
+  listincidents:
+    help: List existing incidents.
+    arguments:
+      since:
+        type: string
+        in: query
+        help: The start of the date
+      until:
+        type: string
+        in: query
+        help: The end of the date
+      date_range:
+        type: string
+        in: query
+        help: start and end date range
+      incident_key:
+        type: string
+        in: query
+        help: search with incident key
+      statuses:
+        type: list
+        in: query
+        help: Return only incidents with the given statuses
+      serviceids:
+        type: list
+        in: query
+        help: Returns only the incidents associated with the passed service
+      userIds:
+        type: list	
+        in: query
+        help: Returns only the incidents currently assigned to the passed user
+    http:
+      port: 8000
+      method: get
+      path: /incidents
+      contentType: application/json
+    output:
+      type: string
+environment:
+  access_token:
+    type: string
+    pattern: "Token token=y_NbAkKc66ryYTWUXYEu"
+    required: true
+    help: basic athorization token.
+
