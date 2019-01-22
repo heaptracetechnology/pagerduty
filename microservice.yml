@@ -1,10 +1,10 @@
 omg: 1
 lifecycle:
   startup:
-    command: ["go", "build", "pagerduty"]
+    command: ["go", "pagerduty"]
 info:
   version: 1.0.0
-  title: Pagerduty Incodent 
+  title: Pagerduty Incident 
   description: This is to create, update and resolve incidents on PagerDuty
   contact:
     name: Deva Chormale
@@ -33,8 +33,7 @@ actions:
       path: /incidents
       contentType: application/json
     output:
-      contentType: application/json
-      type: string
+      type: map
   updateincident:
     help: Update an incident
     arguments:
@@ -56,8 +55,7 @@ actions:
       path: /incidents/{{id}}
       contentType: application/json
     output:
-      contentType: application/json
-      type: string
+      type: map
   getincident:
     help: Show detailed information about an incident. Accepts either an incident id, or an incident number.
     arguments:
@@ -71,8 +69,7 @@ actions:
       path: /incidents/{{id}}
       contentType: application/json
     output:
-      contentType: application/json
-      type: string
+      type: map
   listincidents:
     help: List existing incidents.
     arguments:
@@ -110,11 +107,12 @@ actions:
       path: /incidents
       contentType: application/json
     output:
-      type: string
+      type: map
 environment:
   access_token:
     type: string
-    pattern: "Token token=y_NbAkKc66ryYTWUXYEu"
+    pattern: "^Token token=[a-zA-Z0-9_]*$"
     required: true
     help: basic athorization token.
+
 
