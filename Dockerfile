@@ -1,14 +1,14 @@
 FROM golang
 
 RUN go get github.com/PagerDuty/go-pagerduty
+RUN go get github.com/gorilla/mux
 
-WORKDIR /go/src/github.com/microserice/pagerduty
+WORKDIR /go/src/github.com/microservice/pagerduty
 
-ADD . /go/src/github.com/microserice/pagerduty
+ADD . /go/src/github.com/microservice/pagerduty
 
-RUN go install github.com/microserice/pagerduty
+RUN go install github.com/microservice/pagerduty
 
 ENTRYPOINT pagerduty
 
-EXPOSE 8000
-
+EXPOSE 5000

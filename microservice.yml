@@ -1,7 +1,7 @@
 omg: 1
 lifecycle:
   startup:
-    command: ["go", "pagerduty"]
+    command: ["pagerduty"]
 info:
   version: 1.0.0
   title: Pagerduty Incident 
@@ -19,7 +19,7 @@ actions:
     arguments:
       from:
         type: string
-        in: requestBody
+        in: query
         required: true
         help: The email address of a valid user associated with the account making the request
       incident:
@@ -28,31 +28,9 @@ actions:
         required: true
         help: Incident detail for creation.
     http:
-      port: 8000
+      port: 5000
       method: post
       path: /incidents
-      contentType: application/json
-    output:
-      type: map
-  updateincident:
-    help: Update an incident
-    arguments:
-      id:
-        type: string
-        in: path
-        required: true
-      from:
-        type: string
-        in: query
-        required: true
-      payload:
-        type: string
-        in: requestBody
-        help: The content to update incident
-    http:
-      port: 8000
-      method: put
-      path: /incidents/{{id}}
       contentType: application/json
     output:
       type: map
@@ -64,7 +42,7 @@ actions:
         in: path
         required: true
     http:
-      port: 8000
+      port: 5000
       method: get
       path: /incidents/{{id}}
       contentType: application/json
@@ -73,6 +51,10 @@ actions:
   listincidents:
     help: List existing incidents.
     arguments:
+      timezone:
+        type: string
+        in: query
+        help: The timezone code
       since:
         type: string
         in: query
@@ -102,17 +84,16 @@ actions:
         in: query
         help: Returns only the incidents currently assigned to the passed user
     http:
-      port: 8000
+      port: 5000
       method: get
-      path: /incidents
+      path: /listincidents
       contentType: application/json
     output:
       type: map
 environment:
   access_token:
     type: string
-    pattern: "^Token token=[a-zA-Z0-9_]*$"
+    pattern: "[a-zA-Z0-9_-]*$"
     required: true
     help: basic athorization token.
-
 
