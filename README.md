@@ -10,11 +10,11 @@ PagerDuty is a platform for agile incident management, not a monitoring system. 
 ### OMG cli
 
 ##### Create Incident
-- omg exec createincident -a from=<FROM_EMAIL> -a incident=<CREATE_INCIDENT_OBJECT> -e access_token=<ACCESS_TOKEN>
+* omg exec createincident -a from=<*FROM_EMAIL*> -a incident=<*CREATE_INCIDENT_OBJECT*> -e access_token=<*ACCESS_TOKEN*>
 ##### Get Incident
-- omg exec getincident -a id=<INCIDENT_ID> -e access_token=<ACCESS_TOKEN>
+* omg exec getincident -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
 ##### Get List of Incidents
-- omg exec listincidents -a <ARGUMENTS> -e access_token=<ACCESS_TOKEN>
+* omg exec listincidents -a <*ARGUMENTS*> -e access_token=<*ACCESS_TOKEN*>
 
 ### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
