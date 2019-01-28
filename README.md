@@ -15,6 +15,16 @@ PagerDuty is a platform for agile incident management, not a monitoring system. 
 * omg exec getincident -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
 ##### Get List of Incidents
 * omg exec listincidents -a <*ARGUMENTS*> -e access_token=<*ACCESS_TOKEN*>
+##### Get list of Incidentnotes
+* omg exec listincidentnotes -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
+##### Create Service
+* omg exec createservice -a service=<*object*> -e access_token=<*ACCESS_TOKEN*>
+##### Get Service
+* omg exec getservice -a id=<*SERVICE_ID*> -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
+##### Get List of Service
+* omg exec listservices -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
+
+
 
 ### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

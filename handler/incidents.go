@@ -7,6 +7,7 @@
 		"github.com/PagerDuty/go-pagerduty"
 		"net/http"
 		"os"
+		"fmt"
 	)
 
 	func GetIncidents(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +57,6 @@
 		from := r.FormValue("from")
 		
 		var access_token = os.Getenv("access_token")
-		
 		client := pagerduty.NewClient(access_token)
 		
 		body, err := ioutil.ReadAll(r.Body)
@@ -83,6 +83,122 @@
 		
 		writeJsonResponse(w, bytes)
 	}
+	
+	func GetIncidentsNotesById(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		var id = vars["id"]
+		
+		var access_token = os.Getenv("access_token")
+		client := pagerduty.NewClient(access_token)
+		
+		incidentNotes, err := client.ListIncidentNotes(id)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		bytes, err := json.Marshal(incidentNotes)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		writeJsonResponse(w, bytes)
+	}
+	
+	func GetServicesList(w http.ResponseWriter, r *http.Request) {
+		
+		var access_token = os.Getenv("access_token")
+		client := pagerduty.NewClient(access_token)
+		
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		listServiceOptions := new(pagerduty.ListServiceOptions)
+		
+		err = json.Unmarshal([]byte(body), listServiceOptions)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		listServiceOptionsPtr := *listServiceOptions
+		pagerServices, err := client.ListServices(listServiceOptionsPtr)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err.Error()))
+			return;
+		}
+
+		fmt.Println("pagerServices=======",pagerServices);
+		bytes, err := json.Marshal(pagerServices)
+		w.WriteHeader(http.StatusCreated)
+		
+		writeJsonResponse(w, bytes)
+	}
+	
+	func GetService(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		var id = vars["id"]
+		
+		var access_token = os.Getenv("access_token")
+		client := pagerduty.NewClient(access_token)
+		
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		getServiceOptions := new(pagerduty.GetServiceOptions)
+		
+		err = json.Unmarshal([]byte(body), getServiceOptions)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		pagerServices, err1 := client.GetService(id, getServiceOptions)
+		if err1 != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err1.Error()))
+			return;
+		}
+
+		bytes, err := json.Marshal(pagerServices)
+		w.WriteHeader(http.StatusCreated)
+		writeJsonResponse(w, bytes)
+	}
+	
+	func CreateService(w http.ResponseWriter, r *http.Request) {
+
+		var access_token = os.Getenv("access_token")
+		client := pagerduty.NewClient(access_token)
+		
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		
+		service := new(pagerduty.Service)
+		
+		err = json.Unmarshal([]byte(body), service)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		fmt.Println(service);
+		
+		servicePtr := *service
+		service, err1 := client.CreateService(servicePtr)
+		if err1 != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(err1.Error()))
+			return;
+		}
+
+		bytes, err := json.Marshal(service)
+		
+		w.WriteHeader(http.StatusCreated)
+		writeJsonResponse(w, bytes)
+	}
+	
 	
 	func writeJsonResponse(w http.ResponseWriter, bytes []byte) {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")

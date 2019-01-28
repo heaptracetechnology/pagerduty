@@ -90,6 +90,69 @@ actions:
       contentType: application/json
     output:
       type: map
+  listincidentnotes:
+    help: List existing incidents.
+    arguments:
+      id:
+        type: string
+        in: path
+        required: true
+    http:
+      port: 5000
+      method: get
+      path: /incidents/{{id}}/notes
+      contentType: application/json
+    output:
+      type: map
+  listservices:
+    help: List existing services.
+    arguments:
+      serviceoptions:
+        type: object
+        in: requestBody
+        required: true
+        help: service options for filter service as per option.
+    http:
+      port: 5000
+      method: post
+      path: /services
+      contentType: application/json
+    output:
+      type: map
+  getservice:
+    help: Get details about an existing service.
+    arguments:
+      id:
+        type: string
+        in: path
+        required: true
+      serviceoptions:
+        type: object
+        in: requestBody
+        required: true
+        help: service options for filter service as per option.
+    http:
+      port: 5000
+      method: post
+      path: /services/{{id}}
+      contentType: application/json
+    output:
+      type: map
+  createservice:
+    help: Create a new service.
+    arguments:
+      service:
+        type: object
+        in: requestBody
+        required: true
+        help: The service to be created
+    http:
+      port: 5000
+      method: post
+      path: /services
+      contentType: application/json
+    output:
+      type: map
 environment:
   access_token:
     type: string
