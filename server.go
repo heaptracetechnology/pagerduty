@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/microservice/pagerduty/route"
 	"log"
 	"net/http"
-	"github.com/microservice/pagerduty/route"
 )
 
 func main() {
-	router := route.NewRouter() 
+	router := route.NewRouter()
 	log.Fatal(http.ListenAndServe(":5000", router))
 }
