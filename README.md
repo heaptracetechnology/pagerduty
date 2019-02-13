@@ -7,8 +7,6 @@ This microservice's goal is to create, get and get list of incidents on PagerDut
 
 ## [OMG](hhttps://microservice.guide) CLI
 
-## [OMG](hhttps://microservice.guide) CLI
-
 ### OMG
 
 * omg validate
