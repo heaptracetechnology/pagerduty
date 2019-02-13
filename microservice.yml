@@ -7,9 +7,9 @@ info:
   title: Pagerduty Incident 
   description: This is to create, update and resolve incidents on PagerDuty
   contact:
-    name: Deva Chormale
-    url: https://github.com/devaht
-    email: kchormale@gmail.com
+    name: Rohit Shetty
+    url: https://github.com/heaptracetechnology/pagerduty
+    email: rohits@gmail.com
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT 
@@ -135,21 +135,6 @@ actions:
       port: 5000
       method: post
       path: /services/{{id}}
-      contentType: application/json
-    output:
-      type: map
-  createservice:
-    help: Create a new service.
-    arguments:
-      service:
-        type: object
-        in: requestBody
-        required: true
-        help: The service to be created
-    http:
-      port: 5000
-      method: post
-      path: /services
       contentType: application/json
     output:
       type: map
