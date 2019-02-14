@@ -12,7 +12,7 @@ import (
 
 func GetServicesList(w http.ResponseWriter, r *http.Request) {
 
-	client := pagerduty.NewClient(os.Getenv("access_token"))
+	client := pagerduty.NewClient(os.Getenv("ACCESS_TOKEN"))
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -29,8 +29,10 @@ func GetServicesList(w http.ResponseWriter, r *http.Request) {
 	listServiceOptionsPtr := *listServiceOptions
 	pagerServices, err := client.ListServices(listServiceOptionsPtr)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
+		msg := Message{"false", err.Error()}
+		msgbytes, err := json.Marshal(msg)
+		fmt.Println(err);
+		writeJsonResponse(w, msgbytes)
 		return
 	}
 
@@ -42,7 +44,7 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	var id = vars["id"]
 
-	client := pagerduty.NewClient(os.Getenv("access_token"))
+	client := pagerduty.NewClient(os.Getenv("ACCESS_TOKEN"))
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -58,8 +60,10 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 
 	pagerServices, er := client.GetService(id, getServiceOptions)
 	if er != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(er.Error()))
+		msg := Message{"false", er.Error()}
+		msgbytes, err := json.Marshal(msg)
+		fmt.Println(err);
+		writeJsonResponse(w, msgbytes)
 		return
 	}
 
@@ -69,7 +73,7 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 
 func CreateService(w http.ResponseWriter, r *http.Request) {
 
-	client := pagerduty.NewClient(os.Getenv("access_token"))
+	client := pagerduty.NewClient(os.Getenv("ACCESS_TOKEN"))
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -86,8 +90,10 @@ func CreateService(w http.ResponseWriter, r *http.Request) {
 	servicePtr := *service
 	service, er := client.CreateService(servicePtr)
 	if er != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(er.Error()))
+		msg := Message{"false", er.Error()}
+		msgbytes, err := json.Marshal(msg)
+		fmt.Println(err);
+		writeJsonResponse(w, msgbytes)
 		return
 	}
 
