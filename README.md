@@ -23,27 +23,27 @@ omg build
 
 ##### Create Incident
 ```sh
-$ omg exec createincident -a from=<*FROM_EMAIL*> -a incident=<*CREATE_INCIDENT_OBJECT*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run createincident -a from=<*FROM_EMAIL*> -a incident=<*CREATE_INCIDENT_OBJECT*> -e access_token=<*ACCESS_TOKEN*>
 ```
 ##### Get Incident
 ```sh
-$ omg exec getincident -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run getincident -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
 ```
 ##### Get List of Incidents
 ```sh
-$ omg exec listincidents -a <*ARGUMENTS*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run listincidents -a <*ARGUMENTS*> -e access_token=<*ACCESS_TOKEN*>
 ```
 ##### Get list of Incidentnotes
 ```sh
-$ omg exec listincidentnotes -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run listincidentnotes -a id=<*INCIDENT_ID*> -e access_token=<*ACCESS_TOKEN*>
 ```
 ##### Get Service
 ```sh
-$ omg exec getservice -a id=<*SERVICE_ID*> -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run getservice -a id=<*SERVICE_ID*> -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
 ```
 ##### Get List of Service
 ```sh
-$ omg exec listservices -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
+$ omg run listservices -a serviceoptions=<*object*> -e access_token=<*ACCESS_TOKEN*>
 ```
 
 ## License
