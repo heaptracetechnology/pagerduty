@@ -15,7 +15,7 @@ info:
     url: https://opensource.org/licenses/MIT 
 actions:
   createincident:
-    help: Create an incident, on success return the creted incident detail, on fail return reason and status code. example of response: {"type":"incident","summary":"incident title","incident_number":5,"created_at":"2019-02-14T16:09:19Z","service":{"service_detail":""},"assignments":[{"agginments_detail"}],"last_status_change_at":"2019-02-14T16:09:19Z","teams":[{"id":"PV4FUUH","type":"team_reference"}],"urgency":"high","status":"triggered","id":"PXNDS3C","priority":{}}
+    help: Create an incident, on success return the creted incident detail, on fail return reason and status code.
     arguments:
       from:
         type: string
@@ -34,8 +34,25 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        type:
+          type: string
+        summary:
+          type: string
+        incident_number:
+          type: number
+        assignments:
+          type: string
+        service:
+          type: string
+        urgency:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
   getincident:
-    help: Show detailed information about an incident. response example: {"type":"incident","summary":"[#1] Email sending has not working","incident_number":1,"created_at":"2019-02-13T14:08:04Z","incident_key":"70d6b5aa29494af387ff7b9fa2d2fe0","service":{"summary":"Email Service"},"last_status_change_at":"2019-02-13T14:08:04Z","urgency":"high","status":"triggered","id":"PI5OC0Z","priority":{}} 
+    help: Show detailed information about an incident.
     arguments:
       id:
         type: string
@@ -49,8 +66,27 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        type:
+          type: string
+        summary:
+          type: string
+        incident_number:
+          type: number
+        created_at:
+          type: date
+        assignments:
+          type: string
+        service:
+          type: string
+        urgency:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
   listincidents:
-    help: List existing incidents. response example: {"incidents":[{"type":"incident","summary":"[#1] Email sending has not working","incident_number":1,"created_at":"2019-02-13T14:08:04Z","incident_key":"70d6b5aa29494af387ff7b9fa2d2fe0","service":{"summary":"Email Service"},"last_status_change_at":"2019-02-13T14:08:04Z","urgency":"high","status":"triggered","id":"PI5OC0Z","priority":{}},{"type":"incident","summary":"[#2] Incident created from service exec command","incident_number":2,"created_at":"2019-02-13T14:26:19Z","service":{"summary":"Email Service"},"urgency":"high","status":"triggered","id":"PORGNBD","priority":{}}]}
+    help: List existing incidents.
     arguments:
       timezone:
         type: string
@@ -91,6 +127,9 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        incidents:
+          type: list
   getincidentnotes:
     help: List existing incident notes.
     arguments:
@@ -106,8 +145,21 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        incident_number:
+          type: number
+        title:
+          type: string
+        created_at:
+          type: date,
+        status:
+          type: string
+        id:
+          type: string
+        service:
+          type: object
   listservices:
-    help: Get list existing services. response example: {"Limit":25,"Offset":0,"More":false,"Total":0,"Services":[{"id":"PY1XJKQ","type":"service","summary":"Email Service","name":"Email Service","description":"This service was created during onboarding on February 13, 2019.","status":"critical","teams":[{"type":"team_reference","summary":"Rohit"}],"alert_creation":"create_alerts_and_incidents"}]}
+    help: Get list existing services.
     arguments:
       serviceoptions:
         type: object
@@ -121,8 +173,15 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        limit:
+          type: number
+        offset:
+          type: number
+        services:
+          type: list
   getservice:
-    help: Get details about an existing service. response example: {"id":"PY1XJKQ","type":"service","summary":"Email Service","name":"Email Service","description":"This service was created during onboarding on February 13, 2019.","status":"critical","teams":[{"type":"team_reference","summary":"Rohit"}],"alert_creation":"create_alerts_and_incidents"}
+    help: Get details about an existing service.
     arguments:
       id:
         type: string
@@ -141,6 +200,21 @@ actions:
       contentType: application/json
     output:
       type: map
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        service:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        teams:
+          type: object
+        status:
+          type: string
 environment:
   ACCESS_TOKEN:
     type: string
