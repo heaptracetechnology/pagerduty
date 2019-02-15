@@ -36,21 +36,26 @@ actions:
       type: map
       properties:
         type:
+          help: type of the pagerduty , eg.incident
           type: string
         summary:
+          help: title of incident
           type: string
         incident_number:
+          help: created new incident nubmber.
           type: number
         assignments:
-          type: string
+          help: detail of incident assignee, showing list of assignee.
+          type: list
         service:
-          type: string
-        urgency:
-          type: string
+          help: service detail with type, summary, name, description
+          type: object
         status:
+          help: status of the created incident.
           type: string
         priority:
-          type: string
+          help: priority of the incident.
+          type: object
   getincident:
     help: Show detailed information about an incident.
     arguments:
@@ -68,23 +73,26 @@ actions:
       type: map
       properties:
         type:
+          help: type of the pagerduty , eg.incident
           type: string
         summary:
+          help: title of incident
           type: string
         incident_number:
+          help: created new incident nubmber.
           type: number
-        created_at:
-          type: date
         assignments:
-          type: string
+          help: detail of incident assignee, showing list of assignee.
+          type: list
         service:
-          type: string
-        urgency:
-          type: string
+          help: service detail with type, summary, name, description
+          type: object
         status:
+          help: status of the created incident.
           type: string
         priority:
-          type: string
+          help: priority of the incident.
+          type: object
   listincidents:
     help: List existing incidents.
     arguments:
@@ -129,6 +137,7 @@ actions:
       type: map
       properties:
         incidents:
+          help: show the list of incident object includes with type, summary, incident_number, assignments, service, status, priority
           type: list
   getincidentnotes:
     help: List existing incident notes.
@@ -147,16 +156,19 @@ actions:
       type: map
       properties:
         incident_number:
+          help: incident number of related incident note.
           type: number
         title:
+          help: title of the incident note.
           type: string
-        created_at:
-          type: date,
         status:
+          help: status of the incident note.
           type: string
         id:
+          help: incident note id
           type: string
         service:
+          help: service detail with type, summary, name, description
           type: object
   listservices:
     help: Get list existing services.
@@ -175,10 +187,13 @@ actions:
       type: map
       properties:
         limit:
+          help: limit count of the retrive records.
           type: number
         offset:
+          help: offset of the records for getting next records.
           type: number
         services:
+          help: list of services object includes service id, type, service, name, description, teams, status
           type: list
   getservice:
     help: Get details about an existing service.
@@ -201,19 +216,20 @@ actions:
     output:
       type: map
       properties:
-        id:
-          type: string
         type:
-          type: string
-        service:
+          help: type of the pagerduty resource eg. service
           type: string
         name:
+          help: name of the service.
           type: string
         description:
+          help: description of the service
           type: string
         teams:
-          type: object
+          help: list of the teams for service with team id, type, summary.
+          type: list
         status:
+          help: status of the service eg. critical
           type: string
 environment:
   ACCESS_TOKEN:
